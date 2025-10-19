@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+class FormatExample {
+    static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Введіть ціле число: ");
+        int integerNum = sc.nextInt();
+
+        System.out.print("Введіть число з плаваючою точкою: ");
+        double floatNum = sc.nextDouble();
+
+        sc.nextLine();
+
+        System.out.print("Введіть строку: ");
+        String text = sc.nextLine();
+
+        System.out.print("Введіть логічне значення (true/false): ");
+        boolean logic = sc.nextBoolean();
+
+        System.out.println("\n=== Виведення у різних форматах ===");
+
+        System.out.println("1) Конкатенація: " + integerNum + ", " + floatNum + ", " + text + ", " + logic);
+
+        System.out.printf("2) printf: int=%d, float=%.2f, text=%s, logic=%b%n", integerNum, floatNum, text, logic);
+
+        System.out.printf("3) int у шістнадцятковому форматі: %x%n", integerNum);
+
+        System.out.printf("4) int у вісімковому форматі: %o%n", integerNum);
+
+        System.out.printf("5) Текст у полі шириною 15 символів: |%-15s|%n", text);
+
+        System.out.printf("6) Лише перші 5 символів тексту: |%.5s|%n", text);
+
+        String formatted1 = String.format("7) String.format(): %d, %.3f, %s, %b", integerNum, floatNum, text, logic);
+        System.out.println(formatted1);
+
+        String formatted2 = String.format("8) Текст вирівняно по правому краю: |%10s|", text);
+        System.out.println(formatted2);
+
+        System.out.printf("9) float у науковому форматі: %.4e%n", floatNum);
+
+        System.out.println("10) Дані користувача: int=" + integerNum + " (0x" + Integer.toHexString(integerNum)
+                + "), float=" + String.format("%.2f", floatNum)
+                + ", text='" + text.toUpperCase() + "', logic=" + logic);
+
+        sc.close();
+    }
+}

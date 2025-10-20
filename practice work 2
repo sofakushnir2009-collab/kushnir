@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class DataTypesInfo {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Введіть ціле число (int): ");
+        String intInput = sc.nextLine();
+        int intValue = Integer.parseInt(intInput);
+        System.out.println("Ви ввели int = " + intValue);
+
+        System.out.print("Введіть дійсне число (double): ");
+        String doubleInput = sc.nextLine();
+        double doubleValue = Double.parseDouble(doubleInput);
+        System.out.println("Ви ввели double = " + doubleValue);
+
+        System.out.print("Введіть логічне значення (true/false): ");
+        String boolInput = sc.nextLine();
+        boolean boolValue = Boolean.parseBoolean(boolInput);
+        System.out.println("Ви ввели boolean = " + boolValue);
+
+        System.out.print("Введіть символ (char): ");
+        String charInput = sc.nextLine();
+        char charValue = charInput.charAt(0);
+        System.out.println("Ви ввели char = " + charValue);
+
+        sc.close();
+    }
+}

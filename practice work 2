@@ -1,29 +1,70 @@
 import java.util.Scanner;
 
-public class DataTypesInfo {
+public class PrimitiveTypesInfo {
     public static void main(String[] args) {
+        
+        System.out.println("Інформація про примітивні типи даних:\n");
 
+        System.out.println("byte:");
+        System.out.println("  Розмір: " + Byte.BYTES + " байт");
+        System.out.println("  Мінімальне значення: " + Byte.MIN_VALUE);
+        System.out.println("  Максимальне значення: " + Byte.MAX_VALUE + "\n");
+
+        System.out.println("short:");
+        System.out.println("  Розмір: " + Short.BYTES + " байт");
+        System.out.println("  Мінімальне значення: " + Short.MIN_VALUE);
+        System.out.println("  Максимальне значення: " + Short.MAX_VALUE + "\n");
+
+        System.out.println("int:");
+        System.out.println("  Розмір: " + Integer.BYTES + " байт");
+        System.out.println("  Мінімальне значення: " + Integer.MIN_VALUE);
+        System.out.println("  Максимальне значення: " + Integer.MAX_VALUE + "\n");
+
+        System.out.println("long:");
+        System.out.println("  Розмір: " + Long.BYTES + " байт");
+        System.out.println("  Мінімальне значення: " + Long.MIN_VALUE);
+        System.out.println("  Максимальне значення: " + Long.MAX_VALUE + "\n");
+
+        System.out.println("float:");
+        System.out.println("  Розмір: " + Float.BYTES + " байт");
+        System.out.println("  Мінімальне значення: " + Float.MIN_VALUE);
+        System.out.println("  Максимальне значення: " + Float.MAX_VALUE + "\n");
+
+        System.out.println("double:");
+        System.out.println("  Розмір: " + Double.BYTES + " байт");
+        System.out.println("  Мінімальне значення: " + Double.MIN_VALUE);
+        System.out.println("  Максимальне значення: " + Double.MAX_VALUE + "\n");
+
+        System.out.println("char:");
+        System.out.println("  Розмір: " + Character.BYTES + " байт");
+        System.out.println("  Мінімальне значення: " + (int) Character.MIN_VALUE);
+        System.out.println("  Максимальне значення: " + (int) Character.MAX_VALUE + "\n");
+
+        System.out.println("boolean:");
+        System.out.println("  Розмір: залежить від реалізації (true/false)");
+        System.out.println();
+        
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Введіть ціле число (int): ");
         String intInput = sc.nextLine();
         int intValue = Integer.parseInt(intInput);
-        System.out.println("Ви ввели int = " + intValue);
+        System.out.println("Ви ввели int: " + intValue);
 
-        System.out.print("Введіть дійсне число (double): ");
+        System.out.print("\nВведіть число з плаваючою комою (double): ");
         String doubleInput = sc.nextLine();
         double doubleValue = Double.parseDouble(doubleInput);
-        System.out.println("Ви ввели double = " + doubleValue);
+        System.out.println("Ви ввели double: " + doubleValue);
 
-        System.out.print("Введіть логічне значення (true/false): ");
+        System.out.print("\nВведіть логічне значення (true/false): ");
         String boolInput = sc.nextLine();
         boolean boolValue = Boolean.parseBoolean(boolInput);
-        System.out.println("Ви ввели boolean = " + boolValue);
+        System.out.println("Ви ввели boolean: " + boolValue);
 
-        System.out.print("Введіть символ (char): ");
+        System.out.print("\nВведіть символ (char): ");
         String charInput = sc.nextLine();
         char charValue = charInput.charAt(0);
-        System.out.println("Ви ввели char = " + charValue);
+        System.out.println("Ви ввели char: " + charValue);
 
         sc.close();
     }

@@ -1,0 +1,17 @@
+import java.util.Scanner;
+
+public class CalculateY {
+    public static void main(String[] args) {
+
+        double a = 0.1;
+        double c = 2 * Math.pow(10, -7);
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введіть значення k: ");
+        double k = sc.nextDouble();
+
+        double y = Math.atan(1 / Math.sqrt((4 * k) / (Math.pow(a, 2) * c)));
+
+        System.out.printf(String.valueOf(y));
+    }
+}

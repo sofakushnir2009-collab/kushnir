@@ -1,0 +1,40 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class ReplaceValueInArray {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Random rand = new Random();
+
+        System.out.print("Введіть розмір масиву: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = rand.nextInt(100);
+        }
+        System.out.print("Початковий масив: ");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.print("Введіть значення, яке потрібно знайти: ");
+        int toFind = sc.nextInt();
+        System.out.print("Введіть значення, на яке замінити: ");
+        int toReplace = sc.nextInt();
+        boolean found = false;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == toFind) {
+                arr[i] = toReplace;
+                found = true;
+            }
+        }
+        if (found) {
+            System.out.print("Оновлений масив: ");
+            for (int num : arr) {
+                System.out.print(num + " ");
+            }
+        } else {
+            System.out.println("Значення " + toFind + " не знайдено в масиві.");
+        }
+    }
+}

@@ -1,0 +1,15 @@
+public class SinTable {
+    public static void main(String[] args) {
+        int count = 0;
+        for (int degree = 0; degree <= 90; degree++) {
+            double radians = Math.toRadians(degree);
+            double sinValue = Math.sin(radians);
+            System.out.printf("%6.4f ", sinValue);
+            count++;
+            if (count == 10) {
+                System.out.println();
+                count = 0;
+            }
+        }
+    }
+}

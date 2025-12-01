@@ -1,0 +1,38 @@
+import java.util.Scanner;
+import java.security.SecureRandom;
+
+public class TransposeMatrix {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        SecureRandom sr = new SecureRandom();
+        System.out.print("Введіть розмір квадратної матриці n: ");
+        int n = sc.nextInt();
+        int[][] matrix = new int[n][n];
+        int[][] transposed = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = sr.nextInt(100);
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                transposed[j][i] = matrix[i][j];
+            }
+        }
+        System.out.println("Початкова матриця:");
+        printMatrix(matrix);
+
+        System.out.println("Транспонована матриця:");
+        printMatrix(transposed);
+    }
+
+    public static void printMatrix(int[][] m) {
+        for (int[] row : m) {
+            for (int x : row) {
+                System.out.printf("%5d ", x);
+            }
+            System.out.println();
+        }
+    }
+}

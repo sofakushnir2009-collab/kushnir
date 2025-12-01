@@ -1,0 +1,33 @@
+import java.security.SecureRandom;
+public class SquareRoot {
+    public static void main(String[] args) {
+        SecureRandom sr = new SecureRandom();
+        int rows = 4;
+        int cols = 8;
+        double[][] array = new double[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                array[i][j] = sr.nextInt(100);
+            }
+        }
+        System.out.println("Початковий масив:");
+        printArray(array);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (i % 2 != 0 || j % 2 != 0) {
+                    array[i][j] = Math.sqrt(array[i][j]);
+                }
+            }
+        }
+
+        System.out.println("Масив після заміни:");;
+    }
+    public static void printArray(double[][] arr) {
+        for (double[] row : arr) {
+            for (double num : row) {
+                System.out.printf("%8.3f ", num);
+            }
+            System.out.println();
+        }
+    }
+}

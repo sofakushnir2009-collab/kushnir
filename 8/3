@@ -1,0 +1,25 @@
+public class Ex3 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Введіть рядок: ");
+        String text = sc.nextLine();
+
+        String[] words = text.trim().split("\\s+");
+
+        String shortest = words[0];
+        String longest = words[0];
+
+        for (String word : words) {
+            if (word.length() < shortest.length()) {
+                shortest = word;
+            }
+            if (word.length() > longest.length()) {
+                longest = word;
+            }
+        }
+
+        System.out.println("Найкоротше слово: " + shortest + " (" + shortest.length() + " символів)");
+        System.out.println("Найдовше слово: " + longest + " (" + longest.length() + " символів)");
+    }
+}

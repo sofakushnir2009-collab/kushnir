@@ -1,0 +1,17 @@
+import java.util.Scanner;
+public class Ex1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Введіть слово, щоб перевірити його на паліндром");
+
+        String input = sc.nextLine();
+        String rT = new StringBuilder(input).reverse().toString();
+
+        if (input.equals(rT)) {
+            System.out.println("Слово є паліндромом");
+        } else {
+            System.out.println("Слово НЕ є паліндромом");
+        }
+        sc.close();
+    }
+}

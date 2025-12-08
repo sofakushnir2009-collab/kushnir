@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+public class Ex5 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Введіть текст:");
+        String str = sc.nextLine();
+        String[] badWords = {"паскуда", "дідько", "курва", "мерзота"};
+        String censor = "[цензура]";
+        String[] words = str.trim().split("\\s+");
+        String result = "";
+
+        for (String w : words) {
+            if (w.startsWith("")) {
+                boolean isBad = false;
+                for (String bad : badWords) {
+                    if (w.equalsIgnoreCase(bad)) {
+                        isBad = true;
+                        break;
+                    }
+                }
+                if (isBad) {
+                    result += censor + " ";
+                } else {
+                    result += w + " ";
+                }
+            }
+        }
+
+        System.out.println("Результат:");
+        System.out.println(result.trim());
+        sc.close();
+    }
+}

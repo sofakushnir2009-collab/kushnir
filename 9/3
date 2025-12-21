@@ -1,0 +1,18 @@
+import java.util.Scanner;
+public class Ex3 {
+    public static void main(String[] args) {
+        String a = rtSplit();
+        System.out.println(a);
+    }
+    public static String rtSplit() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Введіть строку для перевернення в ній слов: ");
+        String input = sc.nextLine();
+        String[] words = input.trim().split("\\s+");
+        StringBuilder rt = new StringBuilder();
+        for (String word : words) {
+            rt.append(new StringBuilder(word).reverse()).append(" ");
+        }
+        return rt.toString().trim();
+    }
+}

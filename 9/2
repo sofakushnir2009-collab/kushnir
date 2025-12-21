@@ -1,8 +1,8 @@
 import java.util.Scanner;
 public class Ex2 {
     public static void main(String[] args) {
-        String b = reversal();
-        System.out.println(b);
+        String a = reversal();
+        System.out.println(a);
     }
     public static String reversal() {
         Scanner sc = new Scanner(System.in);

@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int fieldSize = 3;
+
+        while (true) {
+            System.out.println("\n   Меню");
+            System.out.println("1. Старт");
+            System.out.println("2. Налаштування");
+            System.out.println("3. Правила");
+            System.out.println("4. Вихід");
+            System.out.print("Оберіть пункт меню: ");
+
+            while (!scanner.hasNextInt()) {
+                System.out.println("Обери відповідь цифрою");
+                scanner.next();
+            }
+        }
+    }
+}

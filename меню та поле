@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int fieldSize = 3;
+
+        while (true) {
+            System.out.println("\n   Меню");
+            System.out.println("1. Старт");
+            System.out.println("2. Налаштування");
+            System.out.println("3. Правила");
+            System.out.println("4. Вихід");
+            System.out.print("Оберіть пункт меню: ");
+
+            while (!scanner.hasNextInt()) {
+                System.out.println("Обери відповідь цифрою");
+                scanner.next();
+            }
+
+            int choise = scanner.nextInt();
+
+            if (choise == 1) {
+                System.out.println("Гра починається.");
+                System.out.println("Розмір вашого поля гри : " + fieldSize + "x" + fieldSize);
+
+                char[][] board = new char[fieldSize][fieldSize];
+                for (int i = 0; i < fieldSize; i++) {
+                    for (int j = 0; j < fieldSize; j++) {
+                        board[i][j] = ' ';
+                    }
+                }
+
+                System.out.println("\n    1   2   3");
+                System.out.println("  -------------");
+                for (int i = 0; i < fieldSize; i++) {
+                    System.out.print((i + 1) + " | ");
+                    for (int j = 0; j < fieldSize; j++) {
+                        System.out.print(board[i][j] + " | ");
+                    }
+                    System.out.println("\n  -------------");
+                }
+
+            }
+        }
+    }
+}

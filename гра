@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int fieldSize = 3;
+
+        while (true) {
+            System.out.println("\n   Меню");
+            System.out.println("1. Старт");
+            System.out.println("2. Налаштування");
+            System.out.println("3. Правила");
+            System.out.println("4. Вихід");
+            System.out.print("Оберіть пункт меню: ");
+
+            while (!scanner.hasNextInt()) {
+                System.out.println("Обери відповідь цифрою");
+                scanner.next();
+            }
+
+            int choise = scanner.nextInt();
+
+            if (choise == 1) {
+                char[][] board = new char[fieldSize][fieldSize];
+                for (int i = 0; i < fieldSize; i++) {
+                    for (int j = 0; j < fieldSize; j++) {
+                        board[i][j] = ' ';
+                    }
+                }
+
+                char currentPlayer = 'X';
+                while (true) {
+                    System.out.print("\n    ");
+                    for (int i = 1; i <= fieldSize; i++) System.out.print(i + "   ");
+                    System.out.println("\n  " + "----".repeat(fieldSize));
+
+                    for (int i = 0; i < fieldSize; i++) {
+                        System.out.print((i + 1) + " | ");
+                        for (int j = 0; j < fieldSize; j++) {
+                            System.out.print(board[i][j] + " | ");
+                        }
+                        System.out.println("\n  " + "----".repeat(fieldSize));
+                    }
+
+                    System.out.println("Хід " + currentPlayer + ". Введіть рядок:");
+                    int r = scanner.nextInt() - 1;
+                    System.out.println("Введіть стовпчик:");
+                    int c = scanner.nextInt() - 1;
+
+                    if (r >= 0 && r < fieldSize && c >= 0 && c < fieldSize && board[r][c] == ' ') {
+                        board[r][c] = currentPlayer;
+                        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                    } else {
+                        System.out.println("Помилка ходу! Спробуйте ще раз");
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,214 @@
+import java.util.Scanner;
+
+class UserLimitExceededException extends Exception {
+    public UserLimitExceededException(String message) {
+        super(message);
+    }
+}
+
+class InvalidUsernameException extends Exception {
+    public InvalidUsernameException(String message) {
+        super(message);
+    }
+}
+
+class InvalidPasswordException extends Exception {
+    public InvalidPasswordException(String message) {
+        super(message);
+    }
+}
+
+class UserNotFoundException extends Exception {
+    public UserNotFoundException(String message) {
+        super(message);
+    }
+}
+
+class AuthenticationException extends Exception {
+    public AuthenticationException(String message) {
+        super(message);
+    }
+}
+
+public class practice10 {
+
+    private static final int MAX_USERS = 15;
+    private static String[] usernames = new String[MAX_USERS];
+    private static String[] passwords = new String[MAX_USERS];
+    private static int userCount = 0;
+
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        while (true) {
+            showMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            try {
+                switch (choice) {
+                    case 1:
+                        registerUser();
+                        break;
+                    case 2:
+                        deleteUser();
+                        break;
+                    case 3:
+                        authenticateUser();
+                        break;
+                    case 4:
+                        System.out.println("Завершення роботи.");
+                        return;
+                    default:
+                        System.out.println("Невірний пункт меню.");
+                }
+            } catch (UserLimitExceededException |
+                     InvalidUsernameException |
+                     InvalidPasswordException |
+                     UserNotFoundException |
+                     AuthenticationException e) {
+                System.out.println("ПОМИЛКА: " + e.getMessage());
+            }
+        }
+    }
+
+    private static void showMenu() {
+        System.out.println("\n1. Додати користувача");
+        System.out.println("2. Видалити користувача");
+        System.out.println("3. Виконати дію (аутентифікація)");
+        System.out.println("4. Вийти");
+        System.out.print("Ваш вибір: ");
+    }
+
+    private static void registerUser()
+            throws UserLimitExceededException,
+            InvalidUsernameException,
+            InvalidPasswordException {
+
+        if (userCount >= MAX_USERS) {
+            throw new UserLimitExceededException(
+                    "Досягнуто максимум користувачів (15).");
+        }
+
+        System.out.print("Введіть ім'я користувача: ");
+        String username = scanner.nextLine();
+        validateUsername(username);
+
+        if (findUserIndex(username) != -1) {
+            throw new InvalidUsernameException("Користувач вже існує.");
+        }
+
+        System.out.print("Введіть пароль: ");
+        String password = scanner.nextLine();
+        validatePassword(password);
+
+        usernames[userCount] = username;
+        passwords[userCount] = password;
+        userCount++;
+
+        System.out.println("Користувача успішно зареєстровано.");
+    }
+
+    private static void deleteUser() throws UserNotFoundException {
+        System.out.print("Введіть ім'я користувача для видалення: ");
+        String username = scanner.nextLine();
+
+        int index = findUserIndex(username);
+        if (index == -1) {
+            throw new UserNotFoundException("Користувача не знайдено.");
+        }
+
+        usernames[index] = usernames[userCount - 1];
+        passwords[index] = passwords[userCount - 1];
+
+        usernames[userCount - 1] = null;
+        passwords[userCount - 1] = null;
+
+        userCount--;
+
+        System.out.println("Користувача видалено.");
+    }
+
+    private static void authenticateUser()
+            throws AuthenticationException {
+
+        System.out.print("Введіть ім'я користувача: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Введіть пароль: ");
+        String password = scanner.nextLine();
+
+        int index = findUserIndex(username);
+        if (index == -1 || !passwords[index].equals(password)) {
+            throw new AuthenticationException(
+                    "Невірне ім'я користувача або пароль.");
+        }
+
+        System.out.println("Користувача аутентифіковано.");
+    }
+
+    private static void validateUsername(String username)
+            throws InvalidUsernameException {
+
+        if (username.length() < 5) {
+            throw new InvalidUsernameException(
+                    "Ім'я має містити не менше 5 символів.");
+        }
+
+        for (int i = 0; i < username.length(); i++) {
+            if (username.charAt(i) == ' ') {
+                throw new InvalidUsernameException(
+                        "Ім'я не може містити пробіли.");
+            }
+        }
+    }
+
+    private static void validatePassword(String password)
+            throws InvalidPasswordException {
+
+        if (password.length() < 10) {
+            throw new InvalidPasswordException(
+                    "Пароль має містити не менше 10 символів.");
+        }
+
+        int digitCount = 0;
+        boolean hasSpecial = false;
+
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+
+            if (c == ' ') {
+                throw new InvalidPasswordException(
+                        "Пароль не може містити пробіли.");
+            }
+
+            if (c >= '0' && c <= '9') {
+                digitCount++;
+            } else if ((c >= 'a' && c <= 'z') ||
+                    (c >= 'A' && c <= 'Z')) {
+                continue;
+            } else {
+                hasSpecial = true;
+            }
+        }
+
+        if (digitCount < 3) {
+            throw new InvalidPasswordException(
+                    "Пароль має містити щонайменше 3 цифри.");
+        }
+
+        if (!hasSpecial) {
+            throw new InvalidPasswordException(
+                    "Пароль має містити хоча б 1 спеціальний символ.");
+        }
+    }
+
+    private static int findUserIndex(String username) {
+        for (int i = 0; i < userCount; i++) {
+            if (usernames[i].equals(username)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}

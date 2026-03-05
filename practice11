@@ -30,251 +30,267 @@ public class Main2 {
         }
     }
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            int choise;
+            int fieldSize = 3;
 
-        Scanner scanner = new Scanner(System.in);
-        int choise;
-        int fieldSize = 3;
+            while (true) {
+                System.out.println("\n   Меню");
+                System.out.println("1. Старт");
+                System.out.println("2. Налаштування");
+                System.out.println("3. Правила");
+                System.out.println("4. Вихід");
+                System.out.print("Оберіть пункт меню: ");
 
-        while (true) {
-            System.out.println("\n   Меню");
-            System.out.println("1. Старт");
-            System.out.println("2. Налаштування");
-            System.out.println("3. Правила");
-            System.out.println("4. Вихід");
-            System.out.print("Оберіть пункт меню: ");
-
-            try {
-                choise = readInt(scanner);
-            } catch (MenuInputException e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
-
-            if (choise == 1) {
-                System.out.println("Гра починається");
-                System.out.println("Розмір вашого поля гри : " + fieldSize + "x" + fieldSize);
-
-                char[][] board = new char[fieldSize][fieldSize];
-                boolean[][] occupied = new boolean[fieldSize][fieldSize];
-
-                for (int i = 0; i < fieldSize; i++)
-                    for (int j = 0; j < fieldSize; j++)
-                        board[i][j] = ' ';
-
-                char currentPlayer = 'X';
-                while (true) {
-                    System.out.println();
-                    System.out.print("    ");
-                    for (int j = 1; j <= fieldSize; j++) {
-                        System.out.print("" + j + "   ");
-                    }
-                    System.out.println();
-
-                    System.out.print("  ");
-                    for (int j = 0; j < fieldSize; j++) {
-                        System.out.print("----");
-                    }
-                    System.out.println();
-
-                    for (int i = 0; i < fieldSize; i++) {
-                        System.out.print((i + 1) + "|");
-                        for (int j = 0; j < fieldSize; j++) {
-                            System.out.print(" " + board[i][j] + " |");
-                        }
-                        System.out.println();
-                        if (i < fieldSize - 1) {
-                            System.out.print("  ");
-                            for (int j = 0; j < fieldSize; j++) {
-                                System.out.print("---+");
-                            }
-                            System.out.println();
-                        }
-                    }
-
-                    System.out.print("  ");
-                    for (int j = 0; j < fieldSize; j++) {
-                        System.out.print("----");
-                    }
-                    System.out.println();
-
-                    int row, col;
-
-                    while (true) {
-                        try {
-                            System.out.println("Гравець " + currentPlayer + ", введіть номер рядка (1-" + fieldSize + "):");
-                            row = readInt(scanner);
-
-                            if (row >= 0 && row < fieldSize)
-                                throw new MoveOutOfBoundsException("Помилка ходу! Спробуйте ще раз");
-
-                            row--;
-                            break;
-
-                        } catch (MenuInputException e) {
-                            System.out.println(e.getMessage());
-                        } catch (MoveOutOfBoundsException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-
-                    while (true) {
-                        try {
-                            System.out.println("Гравець " + currentPlayer + ", введіть номер стовпця (1-" + fieldSize + "):");
-                            col = readInt(scanner);
-                            if (col >= 0 && col < fieldSize)
-                                throw new MoveOutOfBoundsException("Помилка ходу! Спробуйте ще раз");
-
-                            col--;
-                            break;
-
-                        } catch (MenuInputException e) {
-                            System.out.println(e.getMessage());
-                        } catch (MoveOutOfBoundsException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                    try {
-                        if (occupied[row][col])
-                            throw new CellOccupiedException("Ця клітинка вже зайнята! Спробуйте ще раз");
-                    } catch (CellOccupiedException e) {
-                        System.out.println(e.getMessage());
-                        continue;
-                    }
-
-                    board[row][col] = currentPlayer;
-                    occupied[row][col] = true;
-
-                    boolean winner = false;
-                    int winningRow = -1, winningCol = -1;
-
-                    for (int i = 0; i < fieldSize; i++) {
-                        for (int j = 0; j < fieldSize - 2; j++) {
-                            if (board[i][j] == currentPlayer && board[i][j+1] == currentPlayer && board[i][j+2] == currentPlayer) {
-                                winner = true;
-                                winningRow = i;
-                                winningCol = j;
-                                break;
-                            }
-                        }
-                    }
-
-                    for (int i = 0; i < fieldSize; i++) {
-                        for (int j = 0; j < fieldSize - 2; j++) {
-                            if (board[j][i] == currentPlayer && board[j+1][i] == currentPlayer && board[j+2][i] == currentPlayer) {
-                                winner = true;
-                                winningRow = j;
-                                winningCol = i;
-                                break;
-                            }
-                        }
-                    }
-
-                    for (int i = 0; i < fieldSize - 2; i++) {
-                        for (int j = 0; j < fieldSize - 2; j++) {
-                            if (board[i][j] == currentPlayer && board[i+1][j+1] == currentPlayer && board[i+2][j+2] == currentPlayer) {
-                                winner = true;
-                                winningRow = i;
-                                winningCol = j;
-                                break;
-                            }
-                        }
-                    }
-
-                    for (int i = 0; i < fieldSize - 2; i++) {
-                        for (int j = fieldSize - 1; j > 1; j--) {
-                            if (board[i][j] == currentPlayer && board[i+1][j-1] == currentPlayer && board[i+2][j-2] == currentPlayer) {
-                                winner = true;
-                                winningRow = i;
-                                winningCol = j;
-                                break;
-                            }
-                        }
-                    }
-                    if (winner) {
-                        System.out.println("       Вітаю! Гравець " + currentPlayer + " виграв! Повернення до головного меню");
-                        break;
-                    }
-
-                    boolean isFull = true;
-                    for (int i = 0; i < fieldSize; i++)
-                        for (int j = 0; j < fieldSize; j++)
-                            if (!occupied[i][j])
-                                isFull = false;
-
-                    if (isFull) {
-                        System.out.println("Нічия!");
-                        break;
-                    }
-
-                    currentPlayer =
-                            (currentPlayer == 'X') ? 'O' : 'X';
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Обери відповідь цифрою ");
+                    scanner.next();
                 }
 
-            } else if (choise == 2) {
-                while (true) {
-                    System.out.println("Налаштування");
-                    System.out.println("1. Вибір розміру поля");
-                    System.out.println("0. Повернутися");
-                    System.out.print("Оберіть пункт: ");
 
-                    int settingsChoice;
+                choise = scanner.nextInt();
 
-                    try {
-                        settingsChoice = readInt(scanner);
-                    } catch (MenuInputException e) {
-                        System.out.println(e.getMessage());
-                        continue;
+                if (choise == 1) {
+                    System.out.println("Гра починається");
+                    System.out.println("Розмір вашого поля гри : " + fieldSize + "x" + fieldSize);
+
+                    char[][] board = new char[fieldSize][fieldSize];
+                    boolean[][] occupied = new boolean[fieldSize][fieldSize];
+                    for (int i = 0; i < fieldSize; i++) {
+                        for (int j = 0; j < fieldSize; j++) {
+                            board[i][j] = ' ';
+                        }
                     }
 
-                    if (settingsChoice == 0) {
-                        break;
+                    char currentPlayer = 'X';
+                    while (true) {
+                        System.out.println();
+                        System.out.print("    ");
+                        for (int j = 1; j <= fieldSize; j++) {
+                            System.out.print("" + j + "   ");
+                        }
+                        System.out.println();
 
-                    } else if (settingsChoice == 1) {
-                        System.out.println("Оберіть розмір поля:");
-                        System.out.println("1. 3x3");
-                        System.out.println("2. 5x5");
-                        System.out.println("3. 7x7");
-                        System.out.println("4. 9x9");
+                        System.out.print("  ");
+                        for (int j = 0; j < fieldSize; j++) {
+                            System.out.print("----");
+                        }
+                        System.out.println();
+
+                        for (int i = 0; i < fieldSize; i++) {
+                            System.out.print((i + 1) + "|");
+                            for (int j = 0; j < fieldSize; j++) {
+                                System.out.print(" " + board[i][j] + " |");
+                            }
+                            System.out.println();
+                            if (i < fieldSize - 1) {
+                                System.out.print("  ");
+                                for (int j = 0; j < fieldSize; j++) {
+                                    System.out.print("---+");
+                                }
+                                System.out.println();
+                            }
+                        }
+
+                        System.out.print("  ");
+                        for (int j = 0; j < fieldSize; j++) {
+                            System.out.print("----");
+                        }
+                        System.out.println();
+
+                        int row, col;
+                        while (true) {
+                            System.out.println("Гравець " + currentPlayer + ", введіть номер рядка (1-" + fieldSize + "):");
+                            while (true) {
+                                if (scanner.hasNextInt()) {
+                                    row = scanner.nextInt() - 1;
+                                    if (row >= 0 && row < fieldSize) {
+                                        break;
+                                    }
+                                }
+                                System.out.println("Помилка ходу! Спробуйте ще раз");
+                                scanner.next();
+                            }
+                            if (row >= 0 && row < fieldSize) {
+                                break;
+                            }
+                        }
+
+                        while (true) {
+                            System.out.println("Гравець " + currentPlayer + ", введіть номер стовпця (1-" + fieldSize + "):");
+                            while (true) {
+                                if (scanner.hasNextInt()) {
+                                    col = scanner.nextInt() - 1;
+                                    if (col >= 0 && col < fieldSize) {
+                                        break;
+                                    }
+                                }
+                                System.out.println("Помилка ходу! Спробуйте ще раз");
+                                scanner.next();
+                            }
+                            if (col >= 0 && col < fieldSize) {
+                                break;
+                            }
+                        }
+
+                        if (occupied[row][col]) {
+                            System.out.println("Ця клітинка вже зайнята! Спробуйте ще раз");
+                            continue;
+                        }
+
+                        board[row][col] = currentPlayer;
+                        occupied[row][col] = true;
+
+                        boolean winner = false;
+                        int winningRow = -1, winningCol = -1;
+
+                        for (int i = 0; i < fieldSize; i++) {
+                            for (int j = 0; j < fieldSize - 2; j++) {
+                                if (board[i][j] == currentPlayer && board[i][j + 1] == currentPlayer && board[i][j + 2] == currentPlayer) {
+                                    winner = true;
+                                    winningRow = i;
+                                    winningCol = j;
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < fieldSize; i++) {
+                            for (int j = 0; j < fieldSize - 2; j++) {
+                                if (board[j][i] == currentPlayer && board[j + 1][i] == currentPlayer && board[j + 2][i] == currentPlayer) {
+                                    winner = true;
+                                    winningRow = j;
+                                    winningCol = i;
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < fieldSize - 2; i++) {
+                            for (int j = 0; j < fieldSize - 2; j++) {
+                                if (board[i][j] == currentPlayer && board[i + 1][j + 1] == currentPlayer && board[i + 2][j + 2] == currentPlayer) {
+                                    winner = true;
+                                    winningRow = i;
+                                    winningCol = j;
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < fieldSize - 2; i++) {
+                            for (int j = fieldSize - 1; j > 1; j--) {
+                                if (board[i][j] == currentPlayer && board[i + 1][j - 1] == currentPlayer && board[i + 2][j - 2] == currentPlayer) {
+                                    winner = true;
+                                    winningRow = i;
+                                    winningCol = j;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (winner) {
+                            System.out.println("       Вітаю! Гравець " + currentPlayer + " виграв! Повернення до головного меню");
+
+                            for (int i = 0; i < fieldSize; i++) {
+                                System.out.print((i + 1) + "|");
+                                for (int j = 0; j < fieldSize; j++) {
+                                    if ((winningRow == i || winningCol == j || (i - j == winningRow - winningCol) || (i + j == winningRow + winningCol))
+                                            && board[i][j] == currentPlayer) {
+                                        System.out.print(" " + currentPlayer + " |");
+                                    } else {
+                                        System.out.print(" " + board[i][j] + " |");
+                                    }
+                                }
+                                System.out.println();
+                                if (i < fieldSize - 1) {
+                                    System.out.print("  ");
+                                    for (int j = 0; j < fieldSize; j++) {
+                                        System.out.print("---+");
+                                    }
+                                    System.out.println();
+                                }
+                            }
+
+                            System.out.println();
+                            break;
+                        }
+
+                        boolean isFull = true;
+                        for (int i = 0; i < fieldSize; i++) {
+                            for (int j = 0; j < fieldSize; j++) {
+                                if (!occupied[i][j]) {
+                                    isFull = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (isFull) {
+                            System.out.println("Нічия! Повернення до головного меню");
+                            break;
+                        }
+
+                        currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                    }
+                } else if (choise == 2) {
+                    while (true) {
+                        System.out.println("Налаштування");
+                        System.out.println("1. Вибір розміру поля");
+                        System.out.println("0. Повернутися до меню");
+                        System.out.print("Оберіть пункт: ");
                         while (!scanner.hasNextInt()) {
                             System.out.println("Обери відповідь цифрою");
                             scanner.next();
                         }
-                        int fieldChoice = scanner.nextInt();
-                        switch (fieldChoice) {
-                            case 1:
-                                fieldSize = 3;
-                                break;
-                            case 2:
-                                fieldSize = 5;
-                                break;
-                            case 3:
-                                fieldSize = 7;
-                                break;
-                            case 4:
-                                fieldSize = 9;
-                                break;
-                            default:
-                                System.out.println("Такої розмірної сітки немає. Становлена стандартна гра 3х3");
-                                fieldSize = 3;
+                        int settingsChoice = scanner.nextInt();
+                        if (settingsChoice == 0) {
+                            break;
+                        } else if (settingsChoice == 1) {
+                            System.out.println("Оберіть розмір поля:");
+                            System.out.println("1. 3x3");
+                            System.out.println("2. 5x5");
+                            System.out.println("3. 7x7");
+                            System.out.println("4. 9x9");
+                            while (!scanner.hasNextInt()) {
+                                System.out.println("Обери відповідь цифрою");
+                                scanner.next();
+                            }
+                            int fieldChoice = scanner.nextInt();
+                            switch (fieldChoice) {
+                                case 1:
+                                    fieldSize = 3;
+                                    break;
+                                case 2:
+                                    fieldSize = 5;
+                                    break;
+                                case 3:
+                                    fieldSize = 7;
+                                    break;
+                                case 4:
+                                    fieldSize = 9;
+                                    break;
+                                default:
+                                    System.out.println("Такої розмірної сітки немає. Становлена стандартна гра 3х3");
+                                    fieldSize = 3;
+                            }
                         }
                     }
+                } else if (choise == 3) {
+                    System.out.println("Правила:");
+                    System.out.println("1) Кожен гравець ходить по черзі ");
+                    System.out.println("2) Хрестик ходить першим ");
+                    System.out.println("3) Щоб виграти потрібно, щоб у гравця 3 фігури були в лінію");
+                    System.out.println("Натисніть 0 щоб повернутися в меню");
+                    scanner.nextInt();
+                } else if (choise == 4) {
+                    System.out.println("Вихід");
+                    break;
+                } else {
+                    System.out.println("Обери відповідь цифрою");
                 }
-            } else if (choise == 3) {
-                System.out.println("Правила:");
-                System.out.println("1) Кожен гравець ходить по черзі ");
-                System.out.println("2) Хрестик ходить першим ");
-                System.out.println("3) Щоб виграти потрібно, щоб у гравця 3 фігури були в лінію");
-                System.out.println("Натисніть 0 щоб повернутися в меню");
-                scanner.nextInt();
             }
-            else if (choise == 4) {
-                System.out.println("Вихід");
-                break;
-            } else {
-                System.out.println("Обери відповідь цифрою");
-            }
+
+            scanner.close();
         }
-        scanner.close();
     }
-}

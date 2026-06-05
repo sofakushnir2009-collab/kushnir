@@ -1,0 +1,405 @@
+#include <iostream>
+#include <cmath>
+#include <random>
+#include <ctime>
+#include <string>
+
+struct Point {
+    float* point1 = new float[2];
+    float* point2 = new float[2];
+    float* point3 = new float[2];
+    float* point4 = new float[2];
+
+    ~Point() {
+        delete[] point1;
+        delete[] point2;
+        delete[] point3;
+        delete[] point4;
+    }
+};
+
+Point p;
+
+void fill_random_points() {
+
+    for (int i = 0; i < 2; i++) {
+
+        p.point1[i] = rand() % 100;
+
+        std::string input = std::to_string(p.point1[i]);
+
+        try {
+            size_t pos;
+
+            std::stof(input, &pos);
+
+            if (pos != input.length()) {
+                throw std::invalid_argument("Extra character");
+            }
+        }
+
+        catch (...) {
+            std::cout << "Error!\n";
+        }
+    }
+
+    for (int i = 0; i < 2; i++) {
+        std::cout << p.point1[i] << " ";
+    }
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < 2; i++) {
+
+        p.point2[i] = rand() % 100;
+
+        std::string input = std::to_string(p.point2[i]);
+
+        try {
+            size_t pos;
+
+            std::stof(input, &pos);
+
+            if (pos != input.length()) {
+                throw std::invalid_argument("Extra character");
+            }
+        }
+
+        catch (...) {
+            std::cout << "Error!\n";
+        }
+    }
+
+    for (int i = 0; i < 2; i++) {
+        std::cout << p.point2[i] << " ";
+    }
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < 2; i++) {
+
+        p.point3[i] = rand() % 100;
+
+        std::string input = std::to_string(p.point3[i]);
+
+        try {
+            size_t pos;
+
+            std::stof(input, &pos);
+
+            if (pos != input.length()) {
+                throw std::invalid_argument("Extra character");
+            }
+        }
+
+        catch (...) {
+            std::cout << "Error!\n";
+        }
+    }
+
+    for (int i = 0; i < 2; i++) {
+        std::cout << p.point3[i] << " ";
+    }
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < 2; i++) {
+
+        p.point4[i] = rand() % 100;
+
+        std::string input = std::to_string(p.point4[i]);
+
+        try {
+            size_t pos;
+
+            std::stof(input, &pos);
+
+            if (pos != input.length()) {
+                throw std::invalid_argument("Extra character");
+            }
+        }
+
+        catch (...) {
+            std::cout << "Error!\n";
+        }
+    }
+
+    for (int i = 0; i < 2; i++) {
+        std::cout << p.point4[i] << " ";
+    }
+
+    std::cout << std::endl;
+}
+
+void user_input_points() {
+
+    std::cout << "Point 1:\n";
+    for (int i = 0; i < 2; i++) {
+
+        std::string input;
+
+        std::cout << "point1[" << i << "] = ";
+
+        while (true) {
+
+            std::cin >> input;
+
+            try {
+
+                size_t pos;
+
+                p.point1[i] = std::stof(input, &pos);
+
+                if (pos != input.length()) {
+                    throw std::invalid_argument("Extra character");
+                }
+
+                break;
+            }
+
+            catch (...) {
+                std::cout << "Error! Try again: ";
+            }
+        }
+    }
+
+    std::cout << "\nPoint 1: ";
+    for (int i = 0; i < 2; i++) {
+        std::cout << p.point1[i] << " ";
+    }
+
+    std::cout << "\nPoint 2:\n";
+    for (int i = 0; i < 2; i++) {
+
+        std::string input;
+
+        std::cout << "point2[" << i << "] = ";
+
+        while (true) {
+
+            std::cin >> input;
+
+            try {
+
+                size_t pos;
+
+                p.point2[i] = std::stof(input, &pos);
+
+                if (pos != input.length()) {
+                    throw std::invalid_argument("Extra character");
+                }
+
+                break;
+            }
+
+            catch (...) {
+                std::cout << "Error! Try again: ";
+            }
+        }
+    }
+
+    std::cout << "\nPoint 2: ";
+    for (int i = 0; i < 2; i++) {
+        std::cout << p.point2[i] << " ";
+    }
+
+    std::cout << "\nPoint 3:\n";
+    for (int i = 0; i < 2; i++) {
+
+        std::string input;
+
+        std::cout << "point3[" << i << "] = ";
+
+        while (true) {
+
+            std::cin >> input;
+
+            try {
+
+                size_t pos;
+
+                p.point3[i] = std::stof(input, &pos);
+
+                if (pos != input.length()) {
+                    throw std::invalid_argument("Extra character");
+                }
+
+                break;
+            }
+
+            catch (...) {
+                std::cout << "Error! Try again: ";
+            }
+        }
+    }
+
+    std::cout << "\nPoint 3: ";
+    for (int i = 0; i < 2; i++) {
+        std::cout << p.point3[i] << " ";
+    }
+
+    std::cout << "\nPoint 4:\n";
+    for (int i = 0; i < 2; i++) {
+
+        std::string input;
+
+        std::cout << "point4[" << i << "] = ";
+
+        while (true) {
+
+            std::cin >> input;
+
+            try {
+
+                size_t pos;
+
+                p.point4[i] = std::stof(input, &pos);
+
+                if (pos != input.length()) {
+                    throw std::invalid_argument("Extra character");
+                }
+
+                break;
+            }
+
+            catch (...) {
+                std::cout << "Error! Try again: ";
+            }
+        }
+    }
+
+    std::cout << "\nPoint 4: ";
+    for (int i = 0; i < 2; i++) {
+        std::cout << p.point4[i] << " ";
+    }
+
+    std::cout << std::endl;
+}
+
+void input_examination() {
+    std::string input;
+    int number;
+
+    while (true) {
+        std::cout << "Enter number: ";
+        std::cin >> input;
+
+        try {
+            size_t pos;
+
+            number = std::stoi(input, &pos);
+
+            if (pos != input.length()) {
+                throw std::invalid_argument("Extra character");
+            }
+
+            std::cout << "Your number: " << number << std::endl;
+            break;
+        }
+        catch (...) {
+            std::cout << "Error! Try again.\n";
+        }
+    }
+}
+
+bool is_point_equal(float* arr, float x, float y) {
+
+    if (arr[0] == x && arr[1] == y) {
+        return true;
+    }
+
+    return false;
+}
+
+float rectangle_area(float* arr[], int size) {
+
+    float side1 = sqrt(
+        pow(arr[1][0] - arr[0][0], 2) +
+        pow(arr[1][1] - arr[0][1], 2)
+    );
+
+    float side2 = sqrt(
+        pow(arr[2][0] - arr[1][0], 2) +
+        pow(arr[2][1] - arr[1][1], 2)
+    );
+
+    return side1 * side2;
+}
+
+void show_menu(int& choice) {
+
+    std::cout << "___MENU___" << std::endl;
+
+    std::cout << "Choose option:\n"
+              << "1 - Random coordinates\n"
+              << "2 - Manual coordinates\n";
+
+    std::string input;
+
+    while (true) {
+
+        std::cin >> input;
+
+        try {
+
+            size_t pos;
+
+            choice = std::stoi(input, &pos);
+
+            if (pos != input.length()) {
+                throw std::invalid_argument("Extra character");
+            }
+
+            break;
+        }
+
+        catch (...) {
+            std::cout << "Error! Try again: ";
+        }
+    }
+
+    switch (choice) {
+        case 1:
+            fill_random_points();
+            break;
+
+        case 2:
+            user_input_points();
+            break;
+
+        default:
+            std::cout << "Error!";
+    }
+}
+
+int main() {
+
+    srand(time(0));
+
+    int choice = 0;
+
+    show_menu(choice);
+
+    float x, y;
+
+    std::cout << "Enter point: ";
+    std::cin >> x >> y;
+
+    if (
+        is_point_equal(p.point1, x, y) ||
+        is_point_equal(p.point2, x, y) ||
+        is_point_equal(p.point3, x, y) ||
+        is_point_equal(p.point4, x, y)
+    ) {
+        std::cout << "Point exists!\n";
+    }
+    else {
+        std::cout << "Point not found!\n";
+    }
+
+    float* points[4] = {p.point1, p.point2, p.point3, p.point4};
+
+    std::cout << "Rectangle area: " << rectangle_area(points, 4) << std::endl;
+
+    return 0;
+}

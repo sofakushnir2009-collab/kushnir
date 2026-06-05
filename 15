@@ -1,0 +1,150 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+void array_int(int* numbers, int size) {
+    if (size <= 0) return;
+
+    int evenSum = 0, evenCount = 0;
+    int oddSum = 0, oddCount = 0;
+
+    for (int* current = numbers; current < numbers + size; ++current) {
+        if (*current % 2 == 0) {
+            evenSum += *current;
+            evenCount++;
+        } else {
+            oddSum += *current;
+            oddCount++;
+        }
+    }
+
+    if (evenCount > 0) {
+        cout << "Average of even numbers: "
+             << static_cast<double>(evenSum) / evenCount << endl;
+    } else {
+        cout << "No even numbers found." << endl;
+    }
+
+    if (oddCount > 0) {
+        cout << "Average of odd numbers: "
+             << static_cast<double>(oddSum) / oddCount << endl;
+    } else {
+        cout << "No odd numbers found." << endl;
+    }
+}
+
+void min_max_str(string* wordArray, int size) {
+    if (size <= 0) return;
+
+    string* longestWord = wordArray;
+    string* shortestWord = wordArray;
+
+    for (string* current = wordArray; current < wordArray + size; ++current) {
+        if (current->length() > longestWord->length()) {
+            longestWord = current;
+        }
+
+        if (current->length() < shortestWord->length()) {
+            shortestWord = current;
+        }
+    }
+
+    cout << "Longest string: \"" << *longestWord
+         << "\" (Length: " << longestWord->length() << ")" << endl;
+
+    cout << "Shortest string: \"" << *shortestWord
+         << "\" (Length: " << shortestWord->length() << ")" << endl;
+}
+
+void sum_reverse(double* priceArray, int size) {
+    if (size <= 0) return;
+
+    double sum = 0;
+
+    cout << "Elements in reverse order: ";
+
+    for (double* current = priceArray + size - 1; current >= priceArray; --current) {
+        cout << *current << " ";
+        sum += *current;
+    }
+
+    cout << "\nTotal sum: " << sum << endl;
+}
+
+void menu() {
+    int userChoice;
+
+    do {
+        cout << "\nMenu:\n";
+        cout << "1 - Option 1\n";
+        cout << "2 - Option 2\n";
+        cout << "3 - Option 3\n";
+
+        cin >> userChoice;
+
+        switch (userChoice) {
+
+            case 1: {
+                int numberCount;
+
+                cout << "Enter the number of integers: ";
+                cin >> numberCount;
+
+                int* integerArray = new int[numberCount];
+
+                for (int index = 0; index < numberCount; ++index) {
+                    cout << "Number [" << index << "]: ";
+                    cin >> integerArray[index];
+                }
+
+                array_int(integerArray, numberCount);
+
+                delete[] integerArray;
+                break;
+            }
+
+            case 2: {
+                string wordArray[] = {
+                   "Pear", "Orange", "Banana", "Lime", "Lemon"
+                };
+
+                int wordCount = sizeof(wordArray) / sizeof(wordArray[0]);
+
+                min_max_str(wordArray, wordCount);
+
+                break;
+            }
+
+            case 3: {
+                double priceArray[] = {
+                    11.6, 34, 54, 7.78
+                };
+
+                int priceCount = sizeof(priceArray) / sizeof(priceArray[0]);
+
+                sum_reverse(priceArray, priceCount);
+
+                break;
+            }
+
+            case 0:
+                cout << "Exit\n";
+                break;
+
+            default:
+                cout << "Wrong choice\n";
+        }
+
+    } while (userChoice != 0);
+}
+
+int main() {
+
+    cout << fixed << setprecision(2);
+
+    menu();
+
+    return 0;
+}

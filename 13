@@ -1,0 +1,120 @@
+//Завдання 1
+
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+
+int main() {
+    srand(time(0));
+
+    int numbers[10];
+
+    for (int index = 0; index < 10; index++) {
+        numbers[index] = rand() % 100;
+    }
+
+    std::cout << "Your array: ";
+
+    for (int index = 0; index < 10; index++) {
+        std::cout << numbers[index] << " ";
+    }
+}
+
+//Завдання 2
+
+#include <iostream>
+
+int main() {
+
+    int cornerCount = 0;
+
+    std::cout << "Put how many corners you want: " << std::endl;
+    std::cin >> cornerCount;
+
+    int angles[20];
+    int angleSum = 0;
+
+    std::cout << "Write your corners: " << std::endl;
+
+    for (int index = 0; index < cornerCount; index++) {
+
+        std::cin >> angles[index];
+
+        angleSum += angles[index];
+    }
+
+    std::cout << "Sum of your corners = " << angleSum << std::endl;
+
+    if (angleSum == 180 * (cornerCount - 2)) {
+        std::cout << "The polygon exists" << std::endl;
+    }
+    else {
+        std::cout << "The polygon can't exist" << std::endl;
+    }
+}
+
+//Завдання 5
+
+#include <iostream>
+#include <ctime>
+
+int main() {
+
+    int numbers[100];
+
+    std::cout << "Enter array size: " << std::endl;
+
+    int arraySize = 0;
+    std::cin >> arraySize;
+
+    srand(time(0));
+
+    for (int index = 0; index < arraySize; index++) {
+        numbers[index] = rand() % 100;
+    }
+
+    std::cout << "Array: ";
+
+    for (int index = 0; index < arraySize; index++) {
+        std::cout << numbers[index] << " ";
+    }
+
+    std::cout << "\nSelect the order to check the array (1 - ascending, 2 - descending)" << std::endl;
+
+    int userChoice = 0;
+    std::cin >> userChoice;
+
+    bool isOrdered = true;
+
+    if (userChoice == 1) {
+
+        for (int index = 0; index < arraySize - 1; index++) {
+            if (numbers[index] > numbers[index + 1]) {
+                isOrdered = false;
+                break;
+            }
+        }
+
+        if (isOrdered)
+            std::cout << "Array is in ascending order" << std::endl;
+        else
+            std::cout << "Array is not in ascending order" << std::endl;
+    }
+    else if (userChoice == 2) {
+
+        for (int index = 0; index < arraySize - 1; index++) {
+            if (numbers[index] < numbers[index + 1]) {
+                isOrdered = false;
+                break;
+            }
+        }
+
+        if (isOrdered)
+            std::cout << "Array is in descending order" << std::endl;
+        else
+            std::cout << "Array is not in descending order" << std::endl;
+    }
+    else {
+        std::cerr << "Error" << std::endl;
+    }
+}

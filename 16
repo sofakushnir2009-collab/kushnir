@@ -1,0 +1,149 @@
+#include <iostream>
+#include <ctime>
+
+using namespace std;
+
+void print_3d_array(float*** array, int size) {
+
+    for (int i = 0; i < size; i++) {
+
+        for (int j = 0; j < size; j++) {
+
+            for (int z = 0; z < size; z++) {
+
+                cout << array[i][j][z] << " ";
+            }
+
+            cout << endl;
+        }
+
+        cout << endl;
+    }
+}
+
+int main() {
+
+    cout << "Task 1" << endl;
+
+    cout << "Enter char: " << endl;
+    char* charPtr = new char;
+    cin >> *charPtr;
+    cout << "Char: " << *charPtr << endl;
+    delete charPtr;
+
+    cout << "Enter short: " << endl;
+    short* shortPtr = new short;
+    cin >> *shortPtr;
+    cout << "Short: " << *shortPtr << endl;
+    delete shortPtr;
+
+    cout << "Enter int: " << endl;
+    int* intPtr = new int;
+    cin >> *intPtr;
+    cout << "Int: " << *intPtr << endl;
+    delete intPtr;
+
+    cout << "Enter long: " << endl;
+    long* longPtr = new long;
+    cin >> *longPtr;
+    cout << "Long: " << *longPtr << endl;
+    delete longPtr;
+
+    cout << "Enter float: " << endl;
+    float* floatPtr = new float;
+    cin >> *floatPtr;
+    cout << "Float: " << *floatPtr << endl;
+    delete floatPtr;
+
+    cout << "Enter double: " << endl;
+    double* doublePtr = new double;
+    cin >> *doublePtr;
+    cout << "Double: " << *doublePtr << endl;
+    delete doublePtr;
+
+    cout << endl;
+
+    cout << "Task 2" << endl;
+
+    double* valuePtr = new double;
+
+    cin >> *valuePtr;
+
+    double& doub = *valuePtr;
+
+    cout << doub << endl;
+
+    delete valuePtr;
+
+    cout << endl;
+
+    cout << "Task 3" << endl;
+
+    int n;
+
+    cin >> n;
+
+    int* arr = new int[n];
+
+    for (int i = 0; i < n; i++) {
+        arr[i] = n - 1 - i;
+    }
+
+    cout << "Array: " << endl;
+
+    for (int i = n - 1; i >= 0; i--) {
+        cout << arr[i] << " ";
+    }
+
+    delete[] arr;
+
+    cout << endl << endl;
+
+    cout << "Task 4" << endl;
+
+    srand(time(0));
+
+    int size;
+
+    cout << "Enter random number 1: " << endl;
+    cin >> size;
+
+    float*** threeDArray = new float**[size];
+
+    for (int i = 0; i < size; i++) {
+
+        threeDArray[i] = new float*[size];
+
+        for (int j = 0; j < size; j++) {
+
+            threeDArray[i][j] = new float[size];
+        }
+    }
+
+    for (int i = 0; i < size; i++) {
+
+        for (int j = 0; j < size; j++) {
+
+            for (int z = 0; z < size; z++) {
+
+                threeDArray[i][j][z] = rand() % 100;
+            }
+        }
+    }
+
+    print_3d_array(threeDArray, size);
+
+    for (int i = 0; i < size; i++) {
+
+        for (int j = 0; j < size; j++) {
+
+            delete[] threeDArray[i][j];
+        }
+
+        delete[] threeDArray[i];
+    }
+
+    delete[] threeDArray;
+
+    return 0;
+}

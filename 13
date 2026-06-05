@@ -1,0 +1,102 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+void array_int(int* numbers, int size) {
+    if (size <= 0) return;
+
+    int evenSum = 0, evenCount = 0;
+    int oddSum = 0, oddCount = 0;
+
+    for (int* current = numbers; current < numbers + size; ++current) {
+        if (*current % 2 == 0) {
+            evenSum += *current;
+            evenCount++;
+        } else {
+            oddSum += *current;
+            oddCount++;
+        }
+    }
+
+    if (evenCount > 0) {
+        std::cout << "Average of even numbers: "
+                  << static_cast<double>(evenSum) / evenCount << std::endl;
+    } else {
+        std::cout << "No even numbers found." << std::endl;
+    }
+
+    if (oddCount > 0) {
+        std::cout << "Average of odd numbers: "
+                  << static_cast<double>(oddSum) / oddCount << std::endl;
+    } else {
+        std::cout << "No odd numbers found." << std::endl;
+    }
+}
+
+void min_max_str(std::string* words, int size) {
+    if (size <= 0) return;
+
+    std::string* longestWord = words;
+    std::string* shortestWord = words;
+
+    for (std::string* current = words; current < words + size; ++current) {
+        if (current->length() > longestWord->length()) {
+            longestWord = current;
+        }
+        if (current->length() < shortestWord->length()) {
+            shortestWord = current;
+        }
+    }
+
+    std::cout << "Longest string: \"" << *longestWord
+              << "\" (Length: " << longestWord->length() << ")" << std::endl;
+
+    std::cout << "Shortest string: \"" << *shortestWord
+              << "\" (Length: " << shortestWord->length() << ")" << std::endl;
+}
+
+void sum_reverse(double* values, int size) {
+    if (size <= 0) return;
+
+    double totalSum = 0;
+
+    std::cout << "Elements in reverse order: ";
+
+    for (double* current = values + size - 1; current >= values; --current) {
+        std::cout << *current << " ";
+        totalSum += *current;
+    }
+
+    std::cout << "\nTotal sum: " << totalSum << std::endl;
+}
+
+int main() {
+    std::cout << std::fixed << std::setprecision(2);
+
+    int integerCount;
+    std::cout << "Enter the number of integers: ";
+
+    if (!(std::cin >> integerCount))
+        return 1;
+
+    int* integerArray = new int[integerCount];
+
+    for (int index = 0; index < integerCount; ++index) {
+        std::cout << "Number [" << index << "]: ";
+        std::cin >> *(integerArray + index);
+    }
+
+    array_int(integerArray, integerCount);
+
+    std::string wordArray[] = {"Pear", "Orange", "Banana", "Lime", "Lemon"};
+    int wordCount = sizeof(wordArray) / sizeof(wordArray[0]);
+    min_max_str(wordArray, wordCount);
+
+    double priceArray[] = {11.6, 34, 54, 7.78};
+    int priceCount = sizeof(priceArray) / sizeof(priceArray[0]);
+    sum_reverse(priceArray, priceCount);
+
+    delete[] integerArray;
+
+    return 0;
+}

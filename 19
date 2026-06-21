@@ -1,0 +1,124 @@
+#include <iostream>
+#include <memory>
+#include <utility>
+
+namespace CustomContainers {
+
+class IntVector {
+private:
+    std::unique_ptr<int[]> m_storage{nullptr};
+    size_t m_capacity{0};
+    size_t m_size{0};
+
+    void reallocate(size_t newCapacity) {
+        auto newStorage = std::make_unique<int[]>(newCapacity);
+        
+        for (size_t i = 0; i < m_size; ++i) {
+            newStorage[i] = m_storage[i];
+        }
+        
+        m_storage = std::move(newStorage);
+        m_capacity = newCapacity;
+    }
+
+public:
+    IntVector() = default;
+
+    void pushBack(int element) {
+        if (m_size >= m_capacity) {
+            reallocate(m_capacity == 0 ? 1 : m_capacity * 2);
+        }
+        m_storage[m_size++] = element;
+    }
+
+    void insert(size_t index, int element) {
+        if (index > m_size) {
+            std::cerr << "[Vector Error] Insertion index out of bounds: " << index << "\n";
+            return;
+        }
+
+        if (m_size >= m_capacity) {
+            reallocate(m_capacity == 0 ? 1 : m_capacity * 2);
+        }
+
+        for (size_t i = m_size; i > index; --i) {
+            m_storage[i] = m_storage[i - 1];
+        }
+
+        m_storage[index] = element;
+        ++m_size;
+    }
+
+    void remove(size_t index) {
+        if (index >= m_size) {
+            std::cerr << "[Vector Error] Removal index out of bounds: " << index << "\n";
+            return;
+        }
+
+        for (size_t i = index; i < m_size - 1; ++i) {
+            m_storage[i] = m_storage[i + 1];
+        }
+
+        --m_size;
+    }
+
+    int get(size_t index) const {
+        if (index >= m_size) {
+            std::cerr << "[Vector Error] Access index out of bounds: " << index << "\n";
+            return 0; 
+        }
+        return m_storage[index];
+    }
+
+    size_t getSize() const noexcept { 
+        return m_size; 
+    }
+    
+    size_t getCapacity() const noexcept { 
+        return m_capacity; 
+    }
+
+    void dumpToConsole() const {
+        std::cout << "Vector Data: ";
+        for (size_t i = 0; i < m_size; ++i) {
+            std::cout << m_storage[i] << " ";
+        }
+        std::cout << "\n";
+    }
+};
+
+} // namespace CustomContainers
+
+int main() {
+    using CustomContainers::IntVector;
+    IntVector vec;
+
+    std::cout << "=== Push Back ===" << std::endl;
+    vec.pushBack(5);
+    vec.pushBack(15);
+    vec.pushBack(25);
+    vec.dumpToConsole();
+    std::cout << "Items: " << vec.getSize() << ", Buffer: " << vec.getCapacity() << "\n\n";
+
+    std::cout << "=== Insert ===" << std::endl;
+    vec.insert(1, 10);
+    vec.dumpToConsole();
+    vec.insert(0, 1);
+    vec.dumpToConsole();
+    std::cout << "Items: " << vec.getSize() << ", Buffer: " << vec.getCapacity() << "\n\n";
+
+    std::cout << "=== Element Access ===" << std::endl;
+    std::cout << "Value at index 3: " << vec.get(3) << "\n\n";
+
+    std::cout << "=== Remove ===" << std::endl;
+    vec.remove(2);
+    vec.dumpToConsole();
+    std::cout << "Items: " << vec.getSize() << ", Buffer: " << vec.getCapacity() << "\n\n";
+
+    std::cout << "=== Error Guard Testing ===" << std::endl;
+    vec.get(99);
+    vec.remove(5);
+    vec.insert(10, 42);
+
+    return 0;
+}
